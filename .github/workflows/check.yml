@@ -26,7 +26,8 @@ jobs:
           node-version: 24
 
       - name: Fetch the results so far
-        run: git fetch --depth=1 origin data && git show origin/data:status.json > status.json || echo "No results yet: starting over."
+        run: |
+          git fetch --depth=1 origin data && git show origin/data:status.json > status.json || echo "No results yet, starting over."
 
       - name: Ping
         run: node check.mjs status.json
