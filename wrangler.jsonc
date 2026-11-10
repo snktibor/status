@@ -1,0 +1,8 @@
+{
+  "name": "status",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "kv_namespaces": [{ "binding": "STATUS", "id": "4999713b4d7e429b809b9010c95dcaa9" }],
+  "observability": { "enabled": true }
+}

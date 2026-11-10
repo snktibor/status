@@ -1,11 +1,11 @@
 # status
 
-Pings my projects every five minutes for [snktibor.hu/status](https://snktibor.hu/status).
+A Cloudflare Worker that pings my projects every five minutes for [snktibor.hu/status](https://snktibor.hu/status).
 
-The addresses come from [snktibor.hu/api/status/targets](https://snktibor.hu/api/status/targets), the results go to
-`status.json` on the [`data`](https://github.com/snktibor/status/tree/data) branch.
+It takes the addresses from [snktibor.hu/api/status/targets](https://snktibor.hu/api/status/targets), keeps 90 days
+of results in KV and serves them at `/status.json`.
 
 ```sh
-node check.mjs status.json
 node --test
+npx wrangler deploy
 ```

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { KEEP_DAYS, budapestDate, parseTargets, record } from "./check.mjs";
+import { KEEP_DAYS, MAX_TARGETS, budapestDate, parseTargets, record } from "../src/check.js";
 
 const landing = { group: "usageratio", label: "landing", url: "https://usageratio.snktibor.hu" };
 const app = { group: "usageratio", label: "app", url: "https://app.example.com" };
@@ -51,5 +51,12 @@ describe("record", () => {
   it("counts days in Budapest: just after midnight there is the next day", () => {
     const next = record(null, [landing], new Map([[landing.url, up]]), new Date("2026-11-09T23:30:00Z"));
     assert.deepEqual(Object.keys(next.checks[landing.url].days), ["2026-11-10"]);
+  });
+});
+
+describe("parseTargets limit", () => {
+  it("keeps no more addresses than one run can ping", () => {
+    const many = Array.from({ length: 40 }, (_, i) => ({ group: "g", label: "l", url: `https://e${i}.example.com` }));
+    assert.equal(parseTargets({ version: 1, targets: many }).length, MAX_TARGETS);
   });
 });
